@@ -49,8 +49,7 @@ public class MyDbContext : DbContext
 <b>Obs: Na classe do projeto, estão exemplos de configuração dos relacionamentos de 1 para 1, 1 para Muitos e Muitos para Muitos.</b>
 
 ```C#
- modelBuilder.Entity<Pedido>()
-                .HasKey(x => x.PedidoId);
+ modelBuilder.Entity<Pedido>().HasKey(x => x.PedidoId);
                 
   // Configura uma relação de Muitos para Um entre ItemPedido e Pedido
   modelBuilder.Entity<ItemPedido>(ip =>
@@ -102,49 +101,47 @@ builder.Services.AddDbContext<NomeProjetoContext>(options =>
 3.1 - Primeiro é criado uma propriedade privada do contexto e atribuido o seu conteudo via injeção de dependencia.
 
 ```C#
-    public class ProdutoController : ControllerBase
-    {
-        private readonly NomeProjetoContext _contexto;
+public class ProdutoController : ControllerBase
+{
+    private readonly NomeProjetoContext _contexto;
 
-        public ProdutoController(NomeProjetoContext contexto)
-        {
-            _contexto = contexto;
-        }
+    public ProdutoController(NomeProjetoContext contexto)
+    {
+        _contexto = contexto;
     }
+}
 ```
 
 3.2 - Utilizando a propriedade <b><i>_contexto</b></i>, é possivel fazer culsutas chamando a proriedade correspondente a tabela com os metodos de ação do banco.
 
 ```C#
-    //Buscar dados
-    var listaProdutos = _contexto.Produtos.Where(x => x.Ativo).ToList();
-    var produto = _contexto.Produtos.Find(id);
+//Buscar dados
+var listaProdutos = _contexto.Produtos.Where(x => x.Ativo).ToList();
+var produto = _contexto.Produtos.Find(id);
     
-    //Salvar dados
-    _contexto.Produtos.Add(produto);
-    _contexto.SaveChanges();
+//Salvar dados
+_contexto.Produtos.Add(produto);
+_contexto.SaveChanges();
             
-    //Atualizar dados
-    _contexto.Produtos.Update(produtoExistente);
-    _contexto.SaveChanges();
+//Atualizar dados
+_contexto.Produtos.Update(produtoExistente);
+_contexto.SaveChanges();
     
-    //Remover Dados
-    _contexto.Produtos.Remove(produto);
-    _contexto.SaveChanges();
+//Remover Dados
+_contexto.Produtos.Remove(produto);
+_contexto.SaveChanges();
 ```
 
 3.3 - Tambem é possivel trazer tebelas com relacionamentos utilizando o metodo include
 
 ```C#
-    //Relacionamento 1 para Muitos
-    var Pedidos = _contexto.Pedidos.Include(p => p.ItensPedido)
-                                           .ThenInclude(i => i.Produto).Where(x => x.Ativo).FirstOrDefault();
+//Relacionamento 1 para Muitos
+var Pedidos = _contexto.Pedidos.Include(p => p.ItensPedido)
+                               .ThenInclude(i => i.Produto).Where(x => x.Ativo).FirstOrDefault();
 
-    //relacionamento Muitos para Muitos
-    var produtosFornecedor = _contexto.Produtos
-                                       .Include(p => p.Fornecedores)
-                                       .Where(p => p.Fornecedores.Any(x => x.FornecedorId == fornecedorId && x.Ativo))
-                                       .ToList();
+//relacionamento Muitos para Muitos
+var produtosFornecedor = _contexto.Produtos
+                                  .Include(p => p.Fornecedores)
+                                  .Where(p => p.Fornecedores.Any(x => x.FornecedorId == fornecedorId && x.Ativo))
+                                  .ToList();
 ```
-
-
