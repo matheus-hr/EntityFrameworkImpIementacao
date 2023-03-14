@@ -55,7 +55,9 @@ public class MyDbContext : DbContext
   modelBuilder.Entity<ItemPedido>(ip =>
   {
      ip.HasKey(ipe => ipe.ItemPedidoId);
-     ip.HasOne(ipe => ipe.Pedido).WithMany(p => p.ItensPedido).HasForeignKey(ipe => ipe.PedidoId);
+     ip.HasOne(ipe => ipe.Pedido)
+       .WithMany(p => p.ItensPedido)
+       .HasForeignKey(ipe => ipe.PedidoId);
   });
   
   //Configura uma relação de Muitos para Muitos entre Produto e Fornecedor
