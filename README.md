@@ -51,6 +51,26 @@ public class MyDbContext : DbContext
 ```C#
  modelBuilder.Entity<Pedido>()
                 .HasKey(x => x.PedidoId);
+                
+  // Configura uma relação de Muitos para Um entre ItemPedido e Pedido
+  modelBuilder.Entity<ItemPedido>(ip =>
+  {
+     ip.HasKey(ipe => ipe.ItemPedidoId);
+     ip.HasOne(ipe => ipe.Pedido).WithMany(p => p.ItensPedido).HasForeignKey(ipe => ipe.PedidoId);
+  });
+  
+  //Configura uma relação de Muitos para Muitos entre Produto e Fornecedor
+  modelBuilder.Entity<ProdutoFornecedor>(pf =>
+  {
+     pf.HasKey(pfe => pfe.ProdutoFornecedorId);
+     pf.HasOne(pe => pe.Produto)
+       .WithMany(pfe => pfe.Fornecedores)
+       .HasForeignKey(pe => pe.ProdutoId);
+
+     pf.HasOne(fe => fe.Fornecedor)
+       .WithMany(pfe => pfe.Produtos)
+       .HasForeignKey(fe => fe.FornecedorId);
+  });
 ```
 
 ## Passo 2 - Configuração da program.cs
