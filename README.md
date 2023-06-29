@@ -2,7 +2,7 @@
 
 ![project_language](https://img.shields.io/badge/language-C%23-green)
 ![server_backend](https://img.shields.io/badge/backend%2Fserver-.NET%207-blue)
-![web](https://img.shields.io/badge/web-API-blueviolet)
+![web](https://img.shields.io/badge/project-Web%20API-blueviolet)
 
 Aqui será descrito o funcionamento, uso e implementação do entity framework. <br>
 Nesse projeto foi implementado o uso do entity framework em memoria, sem a necessidade de um banco de dados. <br>
