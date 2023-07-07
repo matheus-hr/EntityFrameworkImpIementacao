@@ -7,12 +7,15 @@
 Aqui será descrito o funcionamento, uso e implementação do entity framework. <br>
 Nesse projeto foi implementado o uso do entity framework em memoria, sem a necessidade de um banco de dados. <br>
 
+## 🚀 Tecnologias Utilizadas
+
 Foram utilizados os seguintes pacotes: <br>
 
 <b><i>Microsoft.EntityFrameworkCore</i></b><br>
 <b><i>Microsoft.EntityFrameworkCore.InMemory</i></b><br>
 
-## Passo 1 - Criação do contexto
+
+## 💻 Passo 1 - Criação do contexto
 
 1 - Criação da classe de contexto (NomeProjetoContext), por convenção, neste projeto ela foi criada em uma pasta chamada persistence. <br><br>
 1.1 - Fazer com que a classe NomeProjetoContext herde de DbContext. <br>
@@ -74,7 +77,7 @@ public class MyDbContext : DbContext
   });
 ```
 
-## Passo 2 - Configuração da program.cs
+## 💻 Passo 2 - Configuração da program.cs
 
 2 - Configuração do Entity framework na classe <b><i>Program.cs</i></b><br> para que possa ser possivel fazer a injeção de dependencia da classe de contexto dentro das controlles
 
@@ -96,7 +99,7 @@ builder.Services.AddDbContext<NomeProjetoContext>(options =>
 });
 ```
 
-## Passo 3 - Utilização do contexto
+## 💻 Passo 3 - Utilização do contexto
 
 3 - Implementação do contexto nas controlles e utilização para manipulação dos dados
 
@@ -147,3 +150,9 @@ var produtosFornecedor = _contexto.Produtos
                                   .Where(p => p.Fornecedores.Any(x => x.FornecedorId == fornecedorId && x.Ativo))
                                   .ToList();
 ```
+## ⚙️ Como utilizar este projeto?
+
+1. Clone o repositório.
+2. Abra o projeto no Visual Studio ou em qualquer outra IDE compatível com C#.
+3. Compile o projeto para garantir que todas as dependências sejam restauradas.
+4. Execute os testes de unidade para validar o código.
